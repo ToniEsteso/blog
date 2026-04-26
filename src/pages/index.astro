@@ -12,24 +12,37 @@ const formatShortDate = (date: Date) => date.toLocaleDateString('en-US', { month
 ---
 
 <BaseLayout title="Home">
-  <p class="text-xl font-medium text-text-primary mb-6 font-display">I write about building production software - the engineering tradeoffs, the messy parts of development, and what it takes to ship code that actually works.</p>
+  <main class="min-h-[60vh]">
+    <section class="py-12 sm:py-16">
+      <h1 class="font-display text-4xl sm:text-5xl font-bold leading-tight mb-6">
+        Building systems that actually <span class="text-accent">hold up</span>.
+      </h1>
+      
+      <p class="text-lg text-muted max-w-md">
+        I write about the engineering tradeoffs, the messy parts of development, 
+        and what it takes to ship code that works in production.
+      </p>
+    </section>
+    
+    <div class="w-full h-1 bg-accent rounded-full mb-8"></div>
+    
+    <section class="border-t border-muted/20 pt-8">
+      <h2 class="font-display text-xl font-semibold mb-6">Recent Posts</h2>
 
-  <p class="mb-8">This is where I share what I'm learning along the way.</p>
+      <ul class="space-y-4">
+        {recentPosts.map((post) => (
+          <li class="flex gap-4 items-baseline">
+            <time class="text-xs text-muted w-20 shrink-0">
+              {formatShortDate(post.data.pubDate)}
+            </time>
+            <a href={`/blog/${getSlug(post.id)}`} class="font-medium hover:text-accent transition-colors">
+              {post.data.title}
+            </a>
+          </li>
+        ))}
+      </ul>
 
-  <h2 class="text-xl font-semibold mt-8 mb-4 text-text-primary font-display">Recent Posts</h2>
-
-  <ul class="space-y-4">
-    {recentPosts.map((post) => (
-      <li class="flex gap-4 items-baseline">
-        <time class="text-xs text-muted w-20 shrink-0">
-          {formatShortDate(post.data.pubDate)}
-        </time>
-        <a href={`/blog/${getSlug(post.id)}`} class="font-medium hover:text-accent transition-colors">
-          {post.data.title}
-        </a>
-      </li>
-    ))}
-  </ul>
-
-  <p><a href="/blog" class="text-accent hover:underline">View all posts →</a></p>
+      <p><a href="/blog" class="text-accent hover:underline">View all posts →</a></p>
+    </section>
+  </main>
 </BaseLayout>
