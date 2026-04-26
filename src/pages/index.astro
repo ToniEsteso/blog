@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const recentPosts = posts.slice(0, 3);
+---
+
+<BaseLayout title="Home">
+  <h1>Hi, I'm Your Name</h1>
+
+  <p>Backend engineer pushing AI adoption at work. Climbing into the senior engineer space.</p>
+
+  <p>I write about the messy reality of bringing AI into production systems — the adoption challenges, the engineering tradeoffs, and what it takes to actually ship ML models that don't break everything.</p>
+
+  <p>This is where I share what I'm learning along the way.</p>
+
+  <h2>Recent Posts</h2>
+
+  <ul class="post-list">
+    {recentPosts.map((post) => (
+      <li>
+        <span class="date">{post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+        <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+      </li>
+    ))}
+  </ul>
+
+  <p><a href="/blog">View all posts →</a></p>
+</BaseLayout>
