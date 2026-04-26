@@ -2,6 +2,7 @@
 title: "The T-Shaped Engineer: Balancing Depth, Breadth, and Burnout"
 description: "Navigating the T-shaped role: what it means to be a software engineer with deep expertise in one area and broad knowledge across many."
 pubDate: 2025-07-03
+category: "Career & Growth"
 ---
 
 ## Navigating the T-shaped Wave

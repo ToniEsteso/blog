@@ -111,6 +111,13 @@ footer {
   color: #666;
 }
 
+.hook {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #111;
+  margin-bottom: 1.5rem;
+}
+
 .post-list {
   list-style: none;
 }
@@ -123,6 +130,9 @@ footer {
   color: #888;
   font-size: 0.875rem;
   margin-right: 0.5rem;
+  display: inline-block;
+  min-width: 100px;
+  text-align: right;
 }
 
 .post-list a {

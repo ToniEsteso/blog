@@ -6,6 +6,12 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
+    category: z.enum([
+      'Engineering Leadership',
+      'Production Systems',
+      'AI & Developer Experience',
+      'Career & Growth',
+    ]),
   }),
 });
 

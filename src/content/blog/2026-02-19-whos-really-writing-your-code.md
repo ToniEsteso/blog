@@ -2,6 +2,7 @@
 title: "Who's really writing your code?"
 description: "From AI skeptic to daily user: how coding with AI changed not just productivity, but responsibility."
 pubDate: 2026-02-19
+category: "AI & Developer Experience"
 ---
 
 ## The Skeptic Turned Convert
