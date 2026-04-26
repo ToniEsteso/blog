@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 interface Props {
   title: string;
   description?: string;
@@ -14,23 +16,22 @@ const { title, description = 'Software engineer building production systems' } =
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
   <meta name="description" content={description}>
-  <link rel="stylesheet" href="/style.css">
 </head>
-<body>
-  <header>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/blog">Blog</a>
+<body class="font-sans leading-relaxed text-[#333] max-w-[680px] mx-auto px-6 bg-white">
+  <header class="py-8 border-b border-gray-200 mb-8">
+    <nav class="flex gap-6">
+      <a href="/" class="no-underline text-[#666] font-medium hover:text-[#111] transition-colors duration-200">Home</a>
+      <a href="/about" class="no-underline text-[#666] font-medium hover:text-[#111] transition-colors duration-200">About</a>
+      <a href="/blog" class="no-underline text-[#666] font-medium hover:text-[#111] transition-colors duration-200">Blog</a>
     </nav>
   </header>
 
-  <main>
+  <main class="min-h-[60vh]">
     <slot />
   </main>
 
-  <footer>
-    <p>&copy; {new Date().getFullYear()} Toni Esteso. <a href="https://www.linkedin.com/in/toni-esteso/">LinkedIn</a></p>
+  <footer class="py-8 mt-12 border-t border-gray-200 text-sm text-[#666]">
+    <p>&copy; {new Date().getFullYear()} Toni Esteso. <a href="https://www.linkedin.com/in/toni-esteso/" class="text-blue-600 hover:underline">LinkedIn</a></p>
   </footer>
 </body>
 </html>

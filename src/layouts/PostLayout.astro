@@ -19,9 +19,9 @@ const formattedDate = date.toLocaleDateString('en-US', {
 ---
 
 <BaseLayout title={`${title} - Toni Esteso`} description={description}>
-  <article>
-    <h1>{title}</h1>
-    <p class="date">{formattedDate} · {category}</p>
+  <article class="prose prose-neutral max-w-none">
+    <h1 class="text-3xl font-bold mb-4 text-[#111]">{title}</h1>
+    <p class="text-[#888] text-sm mb-6">{formattedDate} · {category}</p>
     <slot />
   </article>
 </BaseLayout>

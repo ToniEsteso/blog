@@ -8,13 +8,13 @@ const posts = (await getCollection('blog')).sort(
 ---
 
 <BaseLayout title="Blog">
-  <h1>Blog</h1>
+  <h1 class="text-3xl font-bold mb-4 text-[#111]">Blog</h1>
 
-  <ul class="post-list">
+  <ul class="list-none p-0">
     {posts.map((post) => (
-      <li>
-        <span class="date">{post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-        <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+      <li class="mb-4">
+        <span class="text-[#888] text-sm mr-2 inline-block min-w-[100px] text-right">{post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+        <a href={`/blog/${post.id.split('/').pop().replace('.md', '')}`} class="font-medium text-blue-600 hover:underline">{post.data.title}</a>
       </li>
     ))}
   </ul>

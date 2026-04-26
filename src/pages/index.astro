@@ -9,20 +9,20 @@ const recentPosts = posts.slice(0, 3);
 ---
 
 <BaseLayout title="Home">
-  <p class="hook">I write about building production software - the engineering tradeoffs, the messy parts of development, and what it takes to ship code that actually works.</p>
+  <p class="text-xl font-medium text-[#111] mb-6">I write about building production software - the engineering tradeoffs, the messy parts of development, and what it takes to ship code that actually works.</p>
 
-  <p>This is where I share what I'm learning along the way.</p>
+  <p class="mb-4">This is where I share what I'm learning along the way.</p>
 
-  <h2>Recent Posts</h2>
+  <h2 class="text-xl font-semibold mt-8 mb-4 text-[#222]">Recent Posts</h2>
 
-  <ul class="post-list">
+  <ul class="list-none p-0">
     {recentPosts.map((post) => (
-      <li>
-        <span class="date">{post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-        <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+      <li class="mb-4">
+        <span class="text-[#888] text-sm mr-2 inline-block min-w-[100px] text-right">{post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+        <a href={`/blog/${post.id.split('/').pop().replace('.md', '')}`} class="font-medium text-blue-600 hover:underline">{post.data.title}</a>
       </li>
     ))}
   </ul>
 
-  <p><a href="/blog">View all posts →</a></p>
+  <p><a href="/blog" class="text-blue-600 hover:underline">View all posts →</a></p>
 </BaseLayout>
