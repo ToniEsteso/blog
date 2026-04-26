@@ -1,36 +1,72 @@
-# TanStack Start - Basic Example
+# Personal Blog
 
-This is the basic TanStack Start example, demonstrating the fundamentals of building applications with TanStack Router and TanStack Start.
+A static blog built with Astro and markdown, hosted on GitHub Pages.
 
-- [TanStack Router Docs](https://tanstack.com/router)
+## Structure
 
-It's deployed automagically with Netlify!
-
-- [Netlify](https://netlify.com/)
-
-## Start a new project based on this example
-
-To start a new project based on this example, run:
-
-```sh
-npx gitpick TanStack/router/tree/main/examples/react/start-basic start-basic
+```
+/
+├── src/
+│   ├── content/
+│   │   └── blog/        # Blog posts (markdown)
+│   ├── layouts/
+│   │   ├── BaseLayout.astro
+│   │   └── PostLayout.astro
+│   └── pages/
+│       ├── index.astro       # Home page
+│       ├── about.astro       # About page
+│       └── blog/
+│           └── index.astro   # Blog index
+├── public/
+│   └── style.css       # Styles
+├── astro.config.mjs
+└── package.json
 ```
 
-## Getting Started
+## Adding a Post
 
-From your terminal:
+Create a new markdown file in `src/content/blog/`:
 
-```sh
-pnpm install
-pnpm dev
+```
+src/content/blog/YYYY-MM-DD-title.md
 ```
 
-This starts your app in development mode, rebuilding assets on file changes.
-
-## Build
-
-To build the app for production:
-
-```sh
-pnpm build
+Example:
 ```
+src/content/blog/2024-01-15-ai-adoption-challenges.md
+```
+
+Add front matter:
+
+```yaml
+---
+title: "Your Post Title"
+description: "Brief description for SEO"
+pubDate: 2024-01-15
+---
+```
+
+Then write your content below the front matter.
+
+## Local Development
+
+Install dependencies:
+```bash
+npm install
+```
+
+Run locally:
+```bash
+npm run dev
+```
+
+Visit http://localhost:4321
+
+## Deployment
+
+Push to main branch. GitHub Actions will build and deploy automatically.
+
+## Customization
+
+- Edit `astro.config.mjs` for site configuration
+- Modify `public/style.css` for design changes
