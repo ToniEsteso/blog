@@ -111,6 +111,13 @@ footer {
   color: #666;
 }
 
+.hook {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #111;
+  margin-bottom: 1.5rem;
+}
+
 .post-list {
   list-style: none;
 }
