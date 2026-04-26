@@ -1,0 +1,79 @@
+---
+title: "Who's really writing your code?"
+description: "From AI skeptic to daily user: how coding with AI changed not just productivity, but responsibility."
+pubDate: 2026-02-19
+---
+
+## The Skeptic Turned Convert
+
+I'll admit it, I was one of those engineers who rolled their eyes at AI coding tools. GitHub Copilot suggestions felt intrusive, and the idea of letting a Large Language Model (LLM) write production code seemed reckless at best. Then I tried Cursor for the first time and I started seeing the endless possibilities. It wasn't great at the beginning but after investing some time, everything changed.
+
+A few months later, I use AI coding tools every single day. Cursor and Claude Code have become extensions of my workflow. I've built specific commands and rules that make AI scarily efficient at what they do. And yet, I've never felt more responsible for my code than I do now.
+
+That probably sounds counterintuitive. How can the person writing less code feel more accountable for code they didn't even write? That's exactly the shift I want to talk about. We are in the middle of a process that changes the definition of what it means to own your code, and it takes time to realise and understand what this really means.
+
+## What Changed (And What Didn't)
+
+Let me be clear about the role of AI in my workflow, it's a productivity booster. Areally, really good one. But it's not autonomous, it's not making architectural decisions, and it's definitely not shipping features on its own. It still needs massive amounts of input from someone who knows what's actually happening in the system, and even then, it will write many surprising pieces of code which do not fit in the project.
+
+The boring stuff? That's where AI shines. Boilerplate, repetitive patterns, test scaffolding, even entire functions when the requirements are crystal clear. Tasks that used to take me two or three hours now take fifteen minutes. A feature that would have consumed my entire afternoon gets scaffolded in twenty minutes, leaving me the rest of the day for the work that actually requires thought: designing how services communicate, figuring out how new features will impact existing features, debugging subtle production issues or thinking how today's direction will affect the team in six months.
+
+Here's what I didn't expect:I now spend significantly more time reviewing code than writing it. I mean really reviewing, not just skimming for style violations. I review my own AI-generated code with a level of scrutiny I probably should have applied before, but often didn't. I also review my peers' code in the same way. The reality is that I have no idea if they're using AI or not, nor should I care. Code is code. What matters is whether it works, whether it's maintainable, and whether the person who merged it understands what it does.
+
+That last part is where things get tricky.
+
+## The Ownership Problem
+
+I actually did ship a problematic piece of code a few weeks ago, not almost, but actually shipped it. It made it past my review, past the tests, and into production. A teammate caught it in code review before it could do any real damage, but it was already merged by the time they flagged it.
+
+I had asked Claude to build a feature that needed to query historical export data from our database. Each record had a column storing a JSON blob that represented the full export – information, metadata, the works. The code Claude generated looked solid. It pulled the records, parsed the JSON, did some processing, and returned the results. Clean, readable, straightforward.
+
+I tested it locally with some made up rows. Worked perfectly. Query returned in maybe a couple seconds, everything processed fine, so I shipped it.
+
+What did I miss? I knew the JSON column could be enormous. I'd seen the data. Some of those exports were hundreds of kilobytes, even crossing into megabytes for some heavier scenarios. But while I was writing the prompt and reviewing the code, I didn't connect that knowledge to what I was building.
+
+During development, with my tiny test exports, this was fine. In production, with real user data, it choked. The database had to serialise massive JSON blobs, and the application had to hold them all in memory. Queries that should have taken milliseconds were taking seconds. Some were timing out entirely.
+
+Claude had no way to know this was a problem. I'd given it a straightforward prompt, and it gave me straightforward code. The code was correct for the problem as stated. But the problem as stated wasn't the problem I actually needed to solve. I hadn't thought about the real data characteristics. I hadn't asked "what happens when this query runs against our actual export JSONs?" I had trusted that because it worked in my local environment and the code looked professional, it would be fine.
+
+This is the scariest thing about AI-generated code. It's not that the code is bad. It's that it's good enough to pass surface-level review. Good enough that I can convince myself that I understand it without actually thinking through the implications. Good enough to be dangerous.
+
+Ownership matters more than authorship. It doesn't matter whether you wrote every character yourself or whether you prompted an AI and reviewed the result. When you merge code, you're claiming you understand it. You're saying "I know how this works, I know what could go wrong, and I'm confident enough to put my name on it." If you can't make that claim honestly, the code isn't ready. And in this case, I shouldn't have made this claim. I just didn't realise it until someone else pointed it out.
+
+## What Review Actually Means Now
+
+The nature of my work has fundamentally changed. I used to think of myself as someone who writes code and occasionally reviews it. Now? I think of myself as someone who finds solutions, generates implementations with AI assistance, and then ruthlessly reviews everything.
+
+That review process has become the most critical part of my job. I'm asking questions that AI can't answer. Edge cases that only make sense if you're deeply familiar with the system. Performance implications that aren't obvious from the requirements. The subtle architectural choices that will either make future changes easy or impossibly painful.
+
+AI is exceptional at pattern matching. It's seen millions of lines of code and can reproduce those patterns fluently. But our systems aren't generic. They have specific constraints, specific quirks, specific stories that shaped why things are the way they are. AI doesn't know that we use hand-made queries for some specific functionality after we saw many timeouts. It doesn't know that a seemingly innocent database query will timeout on a different environment due to the way loading works. I know these things. And that knowledge is what makes the review valuable.
+
+The tradeoff is real, though. I generate code faster than ever before, but I also spend longer ensuring it's actually correct. On balance, I'm more productive, but the work itself feels different. More cerebral. More about judgment than execution. But judgment is exhausting in a way that typing isn't. When you're generating and reviewing code at this pace, there are moments where your critical eye is tired and something slips past you, not because you don't care, but because maintaining this level of scrutiny is genuinely hard to maintain. That's not an excuse for the mistakes; it's an explanation for why they happen even when you know better.
+
+## What Good Looks Like
+
+After months of working this way, shipping faster, catching mistakes, learning where the gaps are, my definition of "good" has shifted. AI is my unreliable partner: it speeds me up dramatically, occasionally lets me down, and always requires me to stay sharp. The productivity gains are real, but they only hold up if I'm intentional about how I use these tools and how I teach others to use them.
+
+Here's what's working for me and the teams I work with:
+
+- **Think first, generate second.** Start by mapping out the core logic yourself; business rules, edge cases, failure conditions; in comments or pseudocode. Only let AI generate the implementation once you deeply understand what needs to happen. The thinking is yours; AI handles the scaffolding.
+
+- **Review is now the real work.** Spend more time scrutinising code rather than writing it. Handling your edge cases, making sense to future maintainers, and aligning with your actual intent. This applies equally to AI-generated and human-written code.
+
+- **Recognise when AI is the wrong tool**. Not every task can, or should, be delegated. If you're working in a part of the codebase you don't understand well, writing the code yourself is how you build the understanding that makes you a reliable owner of what comes next, whether you write it or AI does.
+
+## Moving Forward
+
+I've been thinking a lot about what happens next. Not just for me, but for the entire profession. Because here's the uncomfortable truth: we're making choices right now that will define what engineering means for the next decade, and most of us are making them implicitly, without really discussing what we're trading away.
+
+Every time a senior engineer merges AI-generated code they don't fully understand, they're sending a message. Every time a junior engineer gets praised for speed over comprehension, we're reinforcing the wrong lesson. Every time we skip the hard conversation in code review because "it works," we're eroding what makes software engineering professional rather than just hobbyist work.
+
+The quality bar is slipping, and AI is both the cause and the excuse. "The AI wrote it" is becoming the new "I copied it from Stack Overflow", except the stakes are higher because the volume is greater and the code looks more legitimate.
+
+But here's what gives me hope: the engineers I respect most are all having versions of this same conversation. They're setting boundaries. They're teaching juniors when to struggle through a problem. They're treating AI as a tool that requires skill and judgment, not a replacement for either.
+
+The transformation is happening whether we like it or not. The tools aren't going away, and rightly so, we are in the technological age. But we get to decide what kind of engineers we become in the process. We get to decide whether "AI-assisted" means amplified expertise or diluted responsibility.
+
+Every line of code you ship is a choice. Every merge is a statement about what you value. Every review is an opportunity to either raise or lower the bar.
+
+The code still needs an owner. Make sure it's you.
