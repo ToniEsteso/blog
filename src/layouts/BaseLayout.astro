@@ -24,8 +24,18 @@ const navLinks = [
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="alternate" type="application/rss+xml" title="Toni Esteso" href="/rss.xml" />
   <title>{title}</title>
   <meta name="description" content={description}>
+
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={Astro.url.href}>
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
 </head>
 <body class="font-body leading-relaxed text-text-primary max-w-[680px] mx-auto px-6 bg-background">
   <header class="border-b border-muted/20 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
