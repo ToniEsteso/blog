@@ -1,23 +1,28 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+const postsWithReadingTime = posts.map(post => ({
+  post,
+  readingTime: Math.ceil(post.body.split(/\s+/).length / 200)
+}));
 ---
 
 <BaseLayout title="Blog">
-  <h1 class="text-3xl font-bold mb-4 text-text-primary font-display">Blog</h1>
+  <h1 class="text-3xl font-bold mb-8 text-text-primary font-display">Blog</h1>
 
-  <ul class="list-none p-0">
-    {posts.map((post) => (
-      <li class="mb-4">
-        <span class="text-[#888] text-sm mr-2 inline-block min-w-[100px] text-right">{post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-        <a href={`/blog/${post.id.split('/').pop().replace('.md', '')}`} class="font-medium text-blue-600 hover:underline">{post.data.title}</a>
-      </li>
-    ))}
-  </ul>
-
-  {posts.length === 0 && <p>No posts yet. Check back soon.</p>}
+  {posts.length > 0 ? (
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+      {postsWithReadingTime.map(({ post, readingTime }) => (
+        <PostCard post={post} readingTime={readingTime} />
+      ))}
+    </div>
+  ) : (
+    <p class="text-muted">No posts yet. Check back soon.</p>
+  )}
 </BaseLayout>

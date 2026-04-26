@@ -6,23 +6,30 @@ const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 const recentPosts = posts.slice(0, 3);
+
+const getSlug = (id: string) => id.split('/').pop().replace('.md', '');
+const formatShortDate = (date: Date) => date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 ---
 
 <BaseLayout title="Home">
   <p class="text-xl font-medium text-text-primary mb-6 font-display">I write about building production software - the engineering tradeoffs, the messy parts of development, and what it takes to ship code that actually works.</p>
 
-  <p class="mb-4">This is where I share what I'm learning along the way.</p>
+  <p class="mb-8">This is where I share what I'm learning along the way.</p>
 
   <h2 class="text-xl font-semibold mt-8 mb-4 text-text-primary font-display">Recent Posts</h2>
 
-  <ul class="list-none p-0">
+  <ul class="space-y-4">
     {recentPosts.map((post) => (
-      <li class="mb-4">
-        <span class="text-[#888] text-sm mr-2 inline-block min-w-[100px] text-right">{post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-        <a href={`/blog/${post.id.split('/').pop().replace('.md', '')}`} class="font-medium text-blue-600 hover:underline">{post.data.title}</a>
+      <li class="flex gap-4 items-baseline">
+        <time class="text-xs text-muted w-20 shrink-0">
+          {formatShortDate(post.data.pubDate)}
+        </time>
+        <a href={`/blog/${getSlug(post.id)}`} class="font-medium hover:text-accent transition-colors">
+          {post.data.title}
+        </a>
       </li>
     ))}
   </ul>
 
-  <p><a href="/blog" class="text-blue-600 hover:underline">View all posts →</a></p>
+  <p><a href="/blog" class="text-accent hover:underline">View all posts →</a></p>
 </BaseLayout>

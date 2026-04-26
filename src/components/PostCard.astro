@@ -1,0 +1,40 @@
+---
+interface Props {
+  post: {
+    id: string;
+    data: {
+      title: string;
+      description: string;
+      pubDate: Date;
+      category?: string;
+    };
+  };
+  readingTime: number;
+}
+
+const { post, readingTime } = Astro.props;
+const slug = post.id.split('/').pop().replace('.md', '');
+const formattedDate = post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+---
+
+<article class="group border border-muted/20 rounded-lg p-5 hover:shadow-md hover:border-muted/40 transition-all">
+  <div class="flex items-center gap-3 text-xs text-muted mb-2">
+    <time datetime={post.data.pubDate.toISOString()}>
+      {formattedDate}
+    </time>
+    {post.data.category && (
+      <>
+        <span class="w-1 h-1 rounded-full bg-muted"></span>
+        <span>{post.data.category}</span>
+      </>
+    )}
+    <span class="w-1 h-1 rounded-full bg-muted"></span>
+    <span>{readingTime} min read</span>
+  </div>
+  
+  <h3 class="font-display text-xl font-semibold mb-2 group-hover:text-accent transition-colors">
+    <a href={`/blog/${slug}`}>{post.data.title}</a>
+  </h3>
+  
+  <p class="text-muted text-sm line-clamp-2">{post.data.description}</p>
+</article>
