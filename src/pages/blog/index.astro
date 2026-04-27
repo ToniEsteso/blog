@@ -30,18 +30,69 @@ const postsWithReadingTime = posts.map(post => ({
   post,
   readingTime: estimateReadingTime(post.body)
 }));
+
+const categories = [...new Set(posts.map(p => p.data.category))].sort();
 ---
 
 <BaseLayout title="Blog">
   <h1 class="text-3xl font-bold mb-8 text-text-primary font-display">Blog</h1>
 
+  {categories.length > 0 && (
+    <div class="flex flex-wrap gap-2 mb-8" id="category-filters">
+      <button
+        data-category="all"
+        class="filter-btn px-3 py-1 text-sm rounded-full border border-accent bg-accent text-white transition-colors"
+      >
+        All
+      </button>
+      {categories.map(category => (
+        <button
+          data-category={category}
+          class="filter-btn px-3 py-1 text-sm rounded-full border border-muted/40 text-text-secondary hover:border-accent hover:text-accent transition-colors"
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+  )}
+
   {posts.length > 0 ? (
-    <div class="grid gap-4">
+    <div class="grid gap-4" id="posts-grid">
       {postsWithReadingTime.map(({ post, readingTime }) => (
-        <PostCard post={post} readingTime={readingTime} />
+        <div data-category={post.data.category} class="post-item">
+          <PostCard post={post} readingTime={readingTime} />
+        </div>
       ))}
     </div>
   ) : (
     <p class="text-muted">No posts yet. Check back soon.</p>
   )}
 </BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('#category-filters .filter-btn');
+  const items = document.querySelectorAll<HTMLElement>('#posts-grid .post-item');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const category = btn.dataset.category;
+
+      // Update active button styles
+      buttons.forEach(b => {
+        b.classList.remove('bg-accent', 'text-white', 'border-accent');
+        b.classList.add('border-muted/40', 'text-text-secondary');
+      });
+      btn.classList.remove('border-muted/40', 'text-text-secondary');
+      btn.classList.add('bg-accent', 'text-white', 'border-accent');
+
+      // Filter items
+      items.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
