@@ -7,9 +7,28 @@ const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
+function estimateReadingTime(markdown: string): number {
+  // Remove frontmatter
+  let text = markdown.replace(/^---[\s\S]*?---/, '');
+  // Remove fenced code blocks
+  text = text.replace(/```[\s\S]*?```/g, '');
+  // Remove inline code
+  text = text.replace(/`[^`]+`/g, '');
+  // Remove HTML tags
+  text = text.replace(/<[^>]+>/g, '');
+  // Remove markdown links/images syntax, keep text
+  text = text.replace(/!?\[[^\]]*\]\([^)]*\)/g, '');
+  text = text.replace(/!?\[[^\]]*\]\[[^\]]*\]/g, '');
+  // Remove markdown formatting characters
+  text = text.replace(/[*_#~>-]/g, '');
+  // Count words
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  return Math.ceil(words.length / 200);
+}
+
 const postsWithReadingTime = posts.map(post => ({
   post,
-  readingTime: Math.ceil(post.body.split(/\s+/).length / 200)
+  readingTime: estimateReadingTime(post.body)
 }));
 ---
 

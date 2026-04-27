@@ -15,11 +15,11 @@ That probably sounds counterintuitive. How can the person writing less code feel
 
 ## What Changed (And What Didn't)
 
-Let me be clear about the role of AI in my workflow, it's a productivity booster. Areally, really good one. But it's not autonomous, it's not making architectural decisions, and it's definitely not shipping features on its own. It still needs massive amounts of input from someone who knows what's actually happening in the system, and even then, it will write many surprising pieces of code which do not fit in the project.
+Let me be clear about the role of AI in my workflow, it's a productivity booster. A really, really good one. But it's not autonomous, it's not making architectural decisions, and it's definitely not shipping features on its own. It still needs massive amounts of input from someone who knows what's actually happening in the system, and even then, it will write many surprising pieces of code which do not fit in the project.
 
 The boring stuff? That's where AI shines. Boilerplate, repetitive patterns, test scaffolding, even entire functions when the requirements are crystal clear. Tasks that used to take me two or three hours now take fifteen minutes. A feature that would have consumed my entire afternoon gets scaffolded in twenty minutes, leaving me the rest of the day for the work that actually requires thought: designing how services communicate, figuring out how new features will impact existing features, debugging subtle production issues or thinking how today's direction will affect the team in six months.
 
-Here's what I didn't expect:I now spend significantly more time reviewing code than writing it. I mean really reviewing, not just skimming for style violations. I review my own AI-generated code with a level of scrutiny I probably should have applied before, but often didn't. I also review my peers' code in the same way. The reality is that I have no idea if they're using AI or not, nor should I care. Code is code. What matters is whether it works, whether it's maintainable, and whether the person who merged it understands what it does.
+Here's what I didn't expect: I now spend significantly more time reviewing code than writing it. I mean really reviewing, not just skimming for style violations. I review my own AI-generated code with a level of scrutiny I probably should have applied before, but often didn't. I also review my peers' code in the same way. The reality is that I have no idea if they're using AI or not, nor should I care. Code is code. What matters is whether it works, whether it's maintainable, and whether the person who merged it understands what it does.
 
 That last part is where things get tricky.
 

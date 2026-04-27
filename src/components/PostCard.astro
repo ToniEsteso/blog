@@ -8,7 +8,7 @@ interface Props {
       title: string;
       description: string;
       pubDate: Date;
-      category?: string;
+      category: string;
     };
   };
   readingTime: number;
@@ -19,24 +19,26 @@ const slug = getSlug(post.id);
 const formattedDate = post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 ---
 
-<a href={`/blog/${slug}`} class="group block border border-muted/20 rounded-lg p-5 hover:shadow-md hover:border-muted/40 transition-all no-underline">
+<article class="group relative border border-muted/20 rounded-lg p-5 hover:shadow-md hover:border-muted/40 transition-all">
+  <a href={`/blog/${slug}`} class="absolute inset-0 z-10" aria-hidden="true" tabindex="-1">
+    <span class="sr-only">Read {post.data.title}</span>
+  </a>
+
   <div class="flex items-center gap-3 text-xs text-muted mb-2">
     <time datetime={post.data.pubDate.toISOString()}>
       {formattedDate}
     </time>
-    {post.data.category && (
-      <>
-        <span class="w-1 h-1 rounded-full bg-muted"></span>
-        <span>{post.data.category}</span>
-      </>
-    )}
+    <span class="w-1 h-1 rounded-full bg-muted"></span>
+    <span>{post.data.category}</span>
     <span class="w-1 h-1 rounded-full bg-muted"></span>
     <span>{readingTime} min read</span>
   </div>
-  
-  <h3 class="font-display text-xl font-semibold mb-2 group-hover:text-accent transition-colors">
-    {post.data.title}
+
+  <h3 class="font-display text-xl font-semibold mb-2 group-hover:text-accent transition-colors relative z-20">
+    <a href={`/blog/${slug}`} class="no-underline focus:outline-none">
+      {post.data.title}
+    </a>
   </h3>
-  
+
   <p class="text-muted text-sm line-clamp-2">{post.data.description}</p>
-</a>
+</article>
