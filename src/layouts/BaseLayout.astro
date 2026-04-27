@@ -25,6 +25,7 @@ const navLinks = [
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="alternate" type="application/rss+xml" title="Toni Esteso" href="/rss.xml" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E👤%3C/text%3E%3C/svg%3E" />
   <title>{title}</title>
   <meta name="description" content={description}>
 
@@ -36,9 +37,9 @@ const navLinks = [
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content={title}>
   <meta name="twitter:description" content={description}>
-<meta name="view-transition" content="enable">
 </head>
 <body class="font-body leading-relaxed text-text-primary max-w-[680px] mx-auto px-6 bg-background">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-background focus:text-text-primary focus:px-4 focus:py-2 focus:rounded focus:border focus:border-accent">Skip to content</a>
   <slot name="body-start" />
   <header class="border-b border-muted/20 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
     <nav class="py-4 flex items-center justify-between">
@@ -64,16 +65,20 @@ const navLinks = [
     </nav>
   </header>
 
-  <main class="min-h-[60vh] animate-fade-in-delay-1">
+  <main id="main" class="min-h-[60vh] animate-fade-in-delay-1">
     <slot />
   </main>
 
   <footer class="border-t border-muted/20 py-8 mt-12">
     <div class="flex flex-col sm:flex-row gap-4 justify-between text-sm text-text-secondary">
       <p>&copy; {new Date().getFullYear()} Toni Esteso</p>
-      <div class="flex gap-4">
-        <a href="/rss.xml" class="hover:text-text-primary transition-colors">RSS</a>
-        <a href="https://linkedin.com/in/toni-esteso" class="hover:text-text-primary transition-colors">LinkedIn</a>
+      <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
+        <a href="mailto:toni@example.com" class="hover:text-text-primary transition-colors">toni@example.com</a>
+        <div class="flex gap-4">
+          <a href="/rss.xml" class="hover:text-text-primary transition-colors">RSS</a>
+          <a href="https://github.com/toni" target="_blank" rel="noopener noreferrer" class="hover:text-text-primary transition-colors">GitHub</a>
+          <a href="https://linkedin.com/in/toni-esteso" target="_blank" rel="noopener noreferrer" class="hover:text-text-primary transition-colors">LinkedIn</a>
+        </div>
       </div>
     </div>
   </footer>

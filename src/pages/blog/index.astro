@@ -17,7 +17,7 @@ const postsWithReadingTime = posts.map(post => ({
   <h1 class="text-3xl font-bold mb-8 text-text-primary font-display">Blog</h1>
 
   {posts.length > 0 ? (
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+    <div class="grid gap-4">
       {postsWithReadingTime.map(({ post, readingTime }) => (
         <PostCard post={post} readingTime={readingTime} />
       ))}
