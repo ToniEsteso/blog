@@ -62,10 +62,6 @@ npm run dev
 
 Visit http://localhost:4321
 
-## Deployment
-
-Push to main branch. GitHub Actions will build and deploy automatically.
-
 ## Customization
 
 - Edit `astro.config.mjs` for site configuration

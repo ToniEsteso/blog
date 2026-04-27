@@ -1,6 +1,6 @@
 # Personal Blog
 
-A static blog built with Astro and markdown, hosted on GitHub Pages.
+A static blog built with Astro and markdown.
 
 ## Structure
 
@@ -61,10 +61,6 @@ npm run dev
 ```
 
 Visit http://localhost:4321
-
-## Deployment
-
-Push to main branch. GitHub Actions will build and deploy automatically.
 
 ## Customization
 
