@@ -1,0 +1,37 @@
+---
+// src/components/ProgressBar.astro
+---
+<div
+  id="progress-container"
+  class="fixed top-0 left-0 w-full h-1 z-[100] opacity-0 transition-opacity duration-300"
+>
+  <div
+    id="progress-bar"
+    class="h-full bg-accent rounded-r-full transition-all duration-100"
+    style="width: 0%"
+  ></div>
+</div>
+
+<script>
+  const container = document.getElementById('progress-container');
+  const bar = document.getElementById('progress-bar');
+
+  const updateProgress = () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+
+    if (bar) {
+      bar.style.width = `${progress}%`;
+    }
+
+    // Show after scrolling past hero (50px)
+    if (scrollTop > 50) {
+      container?.classList.remove('opacity-0');
+    } else {
+      container?.classList.add('opacity-0');
+    }
+  };
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+</script>

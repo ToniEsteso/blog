@@ -39,6 +39,7 @@ const navLinks = [
 <meta name="view-transition" content="enable">
 </head>
 <body class="font-body leading-relaxed text-text-primary max-w-[680px] mx-auto px-6 bg-background">
+  <slot name="body-start" />
   <header class="border-b border-muted/20 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
     <nav class="py-4 flex items-center justify-between">
       <a href="/" class="font-display text-lg font-medium tracking-tight text-text-primary hover:text-accent transition-colors">
