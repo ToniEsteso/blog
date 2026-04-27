@@ -3,14 +3,25 @@
 ---
 <div
   id="progress-container"
-  class="fixed top-0 left-0 w-full h-1 z-[100] opacity-0 transition-opacity duration-300"
+  class="fixed top-0 left-0 w-full h-1 z-[100] opacity-0"
 >
   <div
     id="progress-bar"
-    class="h-full bg-accent rounded-r-full transition-all duration-100"
+    class="h-full bg-accent rounded-r-full"
     style="width: 0%"
   ></div>
 </div>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    #progress-container {
+      transition: opacity 300ms;
+    }
+    #progress-bar {
+      transition: width 100ms;
+    }
+  }
+</style>
 
 <script>
   const container = document.getElementById('progress-container');
