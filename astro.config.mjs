@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://yourusername.github.io',
   integrations: [sitemap()],
+  prefetch: true,
   vite: {
     plugins: [tailwindcss()],
   },

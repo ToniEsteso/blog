@@ -36,6 +36,7 @@ const navLinks = [
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content={title}>
   <meta name="twitter:description" content={description}>
+<meta name="view-transition" content="enable">
 </head>
 <body class="font-body leading-relaxed text-text-primary max-w-[680px] mx-auto px-6 bg-background">
   <header class="border-b border-muted/20 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
@@ -62,7 +63,7 @@ const navLinks = [
     </nav>
   </header>
 
-  <main class="min-h-[60vh]">
+  <main class="min-h-[60vh] animate-fade-in-delay-1">
     <slot />
   </main>
 
