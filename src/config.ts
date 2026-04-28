@@ -2,7 +2,7 @@ export const SITE = {
   title: 'Toni Esteso',
   author: 'Toni Esteso',
   role: 'Senior Software Engineer',
-  url: 'https://yourusername.github.io',
+  url: 'https://toniesteso.com',
   email: 'toni@example.com',
   defaultDescription: 'Software engineer building production systems',
   social: {

@@ -3,8 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://toniesteso.github.io',
-  base: '/blog',
+  site: 'https://toniesteso.com',
   output: 'static',
   integrations: [sitemap()],
   prefetch: true,
