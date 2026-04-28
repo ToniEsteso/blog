@@ -42,7 +42,7 @@ const navLinks = [
     html { background-color: #e8e0c1; }
   </style>
 </head>
-<body class="font-body leading-relaxed text-text-primary max-w-[680px] mx-auto px-6 bg-background">
+<body class="font-body leading-relaxed text-text-primary max-w-[680px] mx-auto px-6 bg-background min-h-screen flex flex-col">
   <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-background focus:text-text-primary focus:px-4 focus:py-2 focus:rounded focus:border focus:border-accent">Skip to content</a>
   <!--
     The `body-start` slot is rendered immediately after the skip-link and before
@@ -76,7 +76,7 @@ const navLinks = [
     </nav>
   </header>
 
-  <main id="main" class="min-h-[60vh] animate-fade-in-delay-1">
+  <main id="main" class="min-h-[60vh] animate-fade-in-delay-1 flex-grow">
     <slot />
   </main>
 
