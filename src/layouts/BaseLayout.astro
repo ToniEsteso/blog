@@ -43,13 +43,12 @@ const navLinks = [
   </style>
 </head>
 <body class="font-body leading-relaxed text-text-primary max-w-[680px] mx-auto px-6 bg-background min-h-screen flex flex-col">
-  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-background focus:text-text-primary focus:px-4 focus:py-2 focus:rounded focus:border focus:border-accent">Skip to content</a>
   <!--
-    The `body-start` slot is rendered immediately after the skip-link and before
-    the header. This is where ProgressBar.astro injects itself via
-    `<ProgressBar slot="body-start" />`. Using a named slot keeps the progress
-    bar outside of `<main>` and `<header>` so it can be `position: fixed` at the
-    very top of the viewport without interfering with document semantics.
+    The `body-start` slot is rendered before the header. This is where
+    ProgressBar.astro injects itself via `<ProgressBar slot="body-start" />`.
+    Using a named slot keeps the progress bar outside of `<main>` and `<header>`
+    so it can be `position: fixed` at the very top of the viewport without
+    interfering with document semantics.
   -->
   <slot name="body-start" />
   <header class="border-b border-muted/20 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
