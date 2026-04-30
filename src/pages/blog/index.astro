@@ -1,37 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
-import { getCollection } from 'astro:content';
+import { getPosts, getCategories } from '../../lib/blog';
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
-
-function estimateReadingTime(markdown: string): number {
-  // Remove frontmatter
-  let text = markdown.replace(/^---[\s\S]*?---/, '');
-  // Remove fenced code blocks
-  text = text.replace(/```[\s\S]*?```/g, '');
-  // Remove inline code
-  text = text.replace(/`[^`]+`/g, '');
-  // Remove HTML tags
-  text = text.replace(/<[^>]+>/g, '');
-  // Remove markdown links/images syntax, keep text
-  text = text.replace(/!?\[[^\]]*\]\([^)]*\)/g, '');
-  text = text.replace(/!?\[[^\]]*\]\[[^\]]*\]/g, '');
-  // Remove markdown formatting characters
-  text = text.replace(/[*_#~>-]/g, '');
-  // Count words
-  const words = text.trim().split(/\s+/).filter(Boolean);
-  return Math.ceil(words.length / 200);
-}
-
-const postsWithReadingTime = posts.map(post => ({
-  post,
-  readingTime: estimateReadingTime(post.body)
-}));
-
-const categories = [...new Set(posts.map(p => p.data.category))].sort();
+const posts = await getPosts();
+const categories = await getCategories();
 ---
 
 <BaseLayout title="Blog">
@@ -58,9 +31,9 @@ const categories = [...new Set(posts.map(p => p.data.category))].sort();
 
   {posts.length > 0 ? (
     <div class="grid gap-4" id="posts-grid">
-      {postsWithReadingTime.map(({ post, readingTime }) => (
-        <div data-category={post.data.category} class="post-item">
-          <PostCard post={post} readingTime={readingTime} />
+      {posts.map((post) => (
+        <div data-category={post.category} class="post-item">
+          <PostCard post={post} />
         </div>
       ))}
     </div>

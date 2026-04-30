@@ -1,44 +1,34 @@
 ---
-import { getSlug } from '../utils/slug';
+import type { Post } from '../lib/blog';
 
 interface Props {
-  post: {
-    id: string;
-    data: {
-      title: string;
-      description: string;
-      pubDate: Date;
-      category: string;
-    };
-  };
-  readingTime: number;
+  post: Post;
 }
 
-const { post, readingTime } = Astro.props;
-const slug = getSlug(post.id);
-const formattedDate = post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+const { post } = Astro.props;
+const formattedDate = post.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 ---
 
 <article class="group relative border border-muted/20 rounded-lg p-5 hover:shadow-md hover:border-muted/40 transition-all">
-  <a href={`/blog/${slug}`} class="absolute inset-0 z-10" aria-hidden="true" tabindex="-1">
-    <span class="sr-only">Read {post.data.title}</span>
+  <a href={post.url} class="absolute inset-0 z-10" aria-hidden="true" tabindex="-1">
+    <span class="sr-only">Read {post.title}</span>
   </a>
 
   <div class="flex items-center gap-3 text-xs text-muted mb-2">
-    <time datetime={post.data.pubDate.toISOString()}>
+    <time datetime={post.pubDate.toISOString()}>
       {formattedDate}
     </time>
     <span class="w-1 h-1 rounded-full bg-muted"></span>
-    <span>{post.data.category}</span>
+    <span>{post.category}</span>
     <span class="w-1 h-1 rounded-full bg-muted"></span>
-    <span>{readingTime} min read</span>
+    <span>{post.readingTime} min read</span>
   </div>
 
   <h3 class="font-display text-xl font-semibold mb-2 group-hover:text-accent transition-colors relative z-20">
-    <a href={`/blog/${slug}`} class="no-underline focus:outline-none">
-      {post.data.title}
+    <a href={post.url} class="no-underline focus:outline-none">
+      {post.title}
     </a>
   </h3>
 
-  <p class="text-muted text-sm line-clamp-2">{post.data.description}</p>
+  <p class="text-muted text-sm line-clamp-2">{post.description}</p>
 </article>

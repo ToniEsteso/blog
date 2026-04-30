@@ -1,13 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../config';
-import { getCollection } from 'astro:content';
-import { getSlug } from '../utils/slug';
+import { getPosts } from '../lib/blog';
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
-const recentPosts = posts.slice(0, 3);
+const recentPosts = await getPosts({ limit: 3 });
 
 const formatShortDate = (date: Date) => date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 ---
@@ -34,11 +30,11 @@ const formatShortDate = (date: Date) => date.toLocaleDateString('en-US', { month
       <ul class="space-y-4">
         {recentPosts.map((post) => (
           <li class="flex gap-4 items-baseline">
-            <time class="text-xs text-muted w-20 shrink-0" datetime={post.data.pubDate.toISOString()}>
-              {formatShortDate(post.data.pubDate)}
+            <time class="text-xs text-muted w-20 shrink-0" datetime={post.pubDate.toISOString()}>
+              {formatShortDate(post.pubDate)}
             </time>
-            <a href={`/blog/${getSlug(post.id)}`} class="font-medium hover:text-accent transition-colors">
-              {post.data.title}
+            <a href={post.url} class="font-medium hover:text-accent transition-colors">
+              {post.title}
             </a>
           </li>
         ))}
